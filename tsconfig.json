@@ -20,6 +20,9 @@
     "paths": {
       "@pages": ["src/pages"],
       "@components": ["src/components"],
+      "@ui": ["src/components/ui"],
+      "@utils-types": ["src/utils/types"],
+      "@api": ["src/utils/adv-api.ts"],
       "@slices": ["src/services/slices"],
       "@selectors": ["src/services/selectors"]
     }

@@ -73,6 +73,8 @@ module.exports = {
     alias: {
       '@pages': path.resolve(__dirname, './src/pages'),
       '@components': path.resolve(__dirname, './src/components'),
+      '@utils-types': path.resolve(__dirname, './src/utils/types'),
+      '@api': path.resolve(__dirname, './src/utils/adv-api.ts'),
       '@slices': path.resolve(__dirname, './src/services/slices'),
       '@selectors': path.resolve(__dirname, './src/services/selectors')
     }
@@ -85,6 +87,6 @@ module.exports = {
     static: path.join(__dirname, './dist'),
     compress: true,
     historyApiFallback: true,
-    port: 4200
+    port: 4300
   }
 };
