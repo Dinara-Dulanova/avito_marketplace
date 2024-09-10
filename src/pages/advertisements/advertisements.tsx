@@ -4,17 +4,24 @@ import { useSelector } from '../../services/store';
 import { useDispatch } from '../../services/store';
 import { useEffect, useState } from 'react';
 import { useDebounce } from '../../utils/hooks/hooks';
-import { fetchAdvertisements } from '../../services/slices/advertisements';
+import {
+  fetchAdvertisements,
+  fetchAdvertisementsPerPage
+} from '../../services/slices/advertisements';
 import { Preloader } from '../../components/ui/preloader/preloader';
 import { AdvertisementCard } from '../../components/advertisement-card/advertisement-card';
 import './advertisements.css';
 import { SearchBar } from '../../components/search-bar/search-bar';
+import { Pagination } from '../../components/pagination/pagination';
+import { AddAdvertisementButton } from '../../components/add-advertisement-button';
+import { AddAdvertisementModal } from '../../components/add-advertisement-modal';
+import { Modal } from '../../components/modal/modal';
 
 export const Advertisements: FC = () => {
   const dispatch = useDispatch(); //загружаю данные по моим объявлениям
   useEffect(() => {
     dispatch(fetchAdvertisements());
-  }, [dispatch]);
+  }, []);
 
   const advertisements: TAdvertisment[] = useSelector(
     (state) => state.advertisements.advertisements
@@ -48,8 +55,20 @@ export const Advertisements: FC = () => {
     }
   }, [debouncedValue, advertisements]);
 
+  // Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
+      <AddAdvertisementButton onClick={handleModalOpen} />
       <SearchBar onSearch={handleSearch} />
       {isAdvertisementsLoading ? (
         <Preloader />
@@ -57,11 +76,18 @@ export const Advertisements: FC = () => {
         <main className='advertisements'>
           {filteredAdvertisements.map((advertisement) => (
             <AdvertisementCard
-              key={advertisement.id} // Добавьте key!
+              key={advertisement.id}
               advertisement={advertisement}
             />
           ))}
         </main>
+      )}
+      {isModalOpen && (
+        <>
+          <Modal title='Добавить объявление' onClose={handleModalClose}>
+            <AddAdvertisementModal />
+          </Modal>
+        </>
       )}
     </>
   );
