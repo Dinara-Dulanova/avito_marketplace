@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useSelector } from '../../services/store';
 import { useDispatch } from '../../services/store';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDebounce } from '../../utils/hooks/hooks';
 import {
   fetchAdvertisements,
@@ -75,10 +76,12 @@ export const Advertisements: FC = () => {
       ) : (
         <main className='advertisements'>
           {filteredAdvertisements.map((advertisement) => (
-            <AdvertisementCard
+            <Link
               key={advertisement.id}
-              advertisement={advertisement}
-            />
+              to={`/advertisement/${advertisement.id}`}
+            >
+              <AdvertisementCard advertisement={advertisement} />
+            </Link>
           ))}
         </main>
       )}

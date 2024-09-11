@@ -14,13 +14,4 @@ export const useDebounce = <T>(value: T, delay: number) => {
   }, [value, delay]);
 
   return debouncedValue;
-  // let timeoutId: ReturnType<typeof setTimeout> | null = null;
-  // return (...args: any[]) => {
-  //     if (timeoutId) {
-  //         clearTimeout(timeoutId);
-  //     }
-  //     timeoutId = setTimeout(() => {
-  //         callback(...args);
-  //     }, delay);
-  // };
 };

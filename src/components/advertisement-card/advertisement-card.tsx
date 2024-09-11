@@ -9,6 +9,11 @@ export const AdvertisementCard: FC<{ advertisement: TAdvertisment }> = ({
   const location = useLocation();
   return (
     <div className='advertisement-card'>
+      <img
+        className='advertisement-card__img'
+        src={advertisement.imageUrl}
+        alt={`img of ${advertisement.name}`}
+      />
       <h3>{advertisement.name}</h3>
       <p>{advertisement.price}</p>
       <p>{advertisement.views}</p>

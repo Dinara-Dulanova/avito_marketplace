@@ -1,3 +1,7 @@
 .advertisement-card {
   outline: solid;
 }
+
+.advertisement-card__img {
+  width: 100%;
+}

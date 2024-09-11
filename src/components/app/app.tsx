@@ -6,6 +6,7 @@ import { Advertisements } from '../../pages/advertisements';
 import { Orders } from '../../pages/orders';
 import { Profile } from '../../pages/profile';
 import { NotFound404 } from '../../pages/not-fount-404';
+import { Advertisement } from '../../pages/advertisement';
 
 const App = () => {
   const navigate = useNavigate();
@@ -17,8 +18,8 @@ const App = () => {
     <div className={styles.app}>
       <Header />
       <Routes location={backgroundLocation || location}>
-        {/* <Route path='/' element={<ConstructorPage />} /> */}
         <Route path='/advertisements' element={<Advertisements />} />
+        <Route path='/advertisement/:id' element={<Advertisement />} />
         <Route path='/orders' element={<Orders />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='*' element={<NotFound404 />} />
