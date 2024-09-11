@@ -1,4 +1,3 @@
-import { Advertisement } from 'src/components/advertisement';
 import {
   type TAdvertisment,
   TOrderStatus,
@@ -9,13 +8,6 @@ import {
 } from './types';
 
 const URL = 'http://localhost:3000';
-
-const checkResponse = <T>(res: Response): Promise<T> =>
-  res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
-
-type TServerResponse<T> = {
-  success: boolean;
-} & T;
 
 export const enum RequestStatus {
   Idle = 'Idle',
@@ -62,3 +54,17 @@ export const postAdvertisement = (data: TNewAdvertisment) =>
       ...data
     })
   }).then((response) => response.json());
+
+export const patchAdvertisement = (id: string, data: TNewAdvertisment) =>
+  fetch(`${URL}/advertisements/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    } as HeadersInit,
+    body: JSON.stringify({
+      ...data
+    })
+  }).then((response) => {
+    console.log(response);
+    return response.json();
+  });

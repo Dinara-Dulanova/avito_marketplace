@@ -27,8 +27,6 @@ export const AddAdvertisementModal = () => {
       likes: 0
     };
     dispatch(postNewAdvertisement(data));
-    // handlePostAdvertisement(data);
-    // postAdvertisement(data);
     console.log(data);
   };
   return (

@@ -3,6 +3,7 @@ import {
   getAdvertisements,
   getAdvertisementsPangination,
   postAdvertisement,
+  patchAdvertisement,
   RequestStatus
 } from '../../utils/adv-api';
 import { type TAdvertisment, type TNewAdvertisment } from '../../utils/types';
@@ -34,6 +35,20 @@ export const postNewAdvertisement = createAsyncThunk(
   'advertisements/postAdvertisement',
   async (data: TNewAdvertisment) => postAdvertisement(data)
 );
+
+export const editAdvertisement = createAsyncThunk<
+  TAdvertisment,
+  { id: string; data: TNewAdvertisment }
+>('advertisements/editAdvertisement', async ({ id, data }, thunkAPI) =>
+  patchAdvertisement(id, data)
+);
+
+// export const editAdvertisement = createAsyncThunk(
+//   'advertisements/editAdvertisement',
+//   async (id: string, data: TNewAdvertisment ) => {
+//     return await patchAdvertisement(id, data)
+//   }
+// );
 
 const advertisementsSlice = createSlice({
   name: 'advertisements',
@@ -69,6 +84,21 @@ const advertisementsSlice = createSlice({
         state.advertisements = [...state.advertisements, action.payload];
       })
       .addCase(postNewAdvertisement.rejected, (state) => {
+        state.status = RequestStatus.Failed;
+      })
+      .addCase(editAdvertisement.pending, (state) => {
+        state.status = RequestStatus.Loading;
+      })
+      .addCase(editAdvertisement.fulfilled, (state, action) => {
+        state.status = RequestStatus.Succes;
+        const existingAdvertisementIndex = state.advertisements.findIndex(
+          (ad: TAdvertisment) => ad.id === action.payload.id
+        );
+        if (existingAdvertisementIndex >= 0) {
+          state.advertisements[existingAdvertisementIndex] = action.payload;
+        }
+      })
+      .addCase(editAdvertisement.rejected, (state) => {
         state.status = RequestStatus.Failed;
       });
   }
