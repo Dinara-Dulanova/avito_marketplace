@@ -1,9 +1,9 @@
 import { TAdvertisment } from '@utils-types';
 import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
-import './advertisement-card.css';
+import './advertisement-preview.css';
 
-export const AdvertisementCard: FC<{ advertisement: TAdvertisment }> = ({
+export const AdvertisementPreview: FC<{ advertisement: TAdvertisment }> = ({
   advertisement
 }) => {
   const location = useLocation();

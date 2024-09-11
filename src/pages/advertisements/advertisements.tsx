@@ -10,7 +10,7 @@ import {
   fetchAdvertisementsPerPage
 } from '../../services/slices/advertisements';
 import { Preloader } from '../../components/ui/preloader/preloader';
-import { AdvertisementCard } from '../../components/advertisement-card/advertisement-card';
+import { AdvertisementPreview } from '../../components/advertisement-preview/advertisement-preview';
 import './advertisements.css';
 import { SearchBar } from '../../components/search-bar/search-bar';
 import { Pagination } from '../../components/pagination/pagination';
@@ -80,7 +80,7 @@ export const Advertisements: FC = () => {
               key={advertisement.id}
               to={`/advertisement/${advertisement.id}`}
             >
-              <AdvertisementCard advertisement={advertisement} />
+              <AdvertisementPreview advertisement={advertisement} />
             </Link>
           ))}
         </main>

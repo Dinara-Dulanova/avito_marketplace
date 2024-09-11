@@ -23,7 +23,7 @@ export const Advertisement: FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedAdvertisement, setEditedAdvertisement] =
     useState<TNewAdvertisment>({
-      ...advertisement
+      ...(advertisement as TNewAdvertisment)
     });
   const handleEditClick = () => {
     setIsEditing(true);

@@ -8,13 +8,13 @@ import {
 } from '../../utils/adv-api';
 import { type TAdvertisment, type TNewAdvertisment } from '../../utils/types';
 
-type advertisementsState = {
+type TAdvertisementsState = {
   advertisements: TAdvertisment[];
   advertisementsPerPage: TAdvertisment[];
   status: RequestStatus;
 };
 
-const initialState: any = {
+const initialState: TAdvertisementsState = {
   advertisements: [],
   advertisementsPerPage: [],
   status: RequestStatus.Idle

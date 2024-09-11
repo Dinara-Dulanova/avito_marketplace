@@ -68,3 +68,17 @@ export const patchAdvertisement = (id: string, data: TNewAdvertisment) =>
     console.log(response);
     return response.json();
   });
+
+export const getOrders = () =>
+  fetch(`${URL}/orders`)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Error fetching orders: ${res.statusText}`);
+      }
+      return res.json();
+    })
+    .then((data: TOrder[]) => data)
+    .catch((error) => {
+      console.error('Error fetching orders:', error);
+      throw error;
+    });
