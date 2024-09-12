@@ -1,12 +1,16 @@
-import { TOrder } from '@utils-types';
+import { TNewOrder, TOrder } from '@utils-types';
 import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from '../../services/store';
 import { Modal } from '../modal/modal';
 import { AdvertisementPreview } from '../advertisement-preview';
 import { renderStatusToString } from '../../utils/helpers/functions';
 import './order-card.css';
+import { editOrders } from '../../services/slices/orders';
 
 export const OrderCard: FC<{ order: TOrder }> = ({ order }) => {
+  const dispatch = useDispatch();
   // Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleModalOpen = () => {
@@ -14,6 +18,22 @@ export const OrderCard: FC<{ order: TOrder }> = ({ order }) => {
   };
   const handleModalClose = () => {
     setIsModalOpen(false);
+  };
+
+  const handleArchiveOrder = () => {
+    const id = order.id;
+    const data: TNewOrder = {
+      status: 5,
+      createdAt: order.createdAt,
+      finishedAt: new Date().toISOString(),
+      items: order.items,
+      deliveryWay: order.deliveryWay,
+      total: order.total
+    };
+    dispatch(editOrders({ id, data: data }));
+    // setIsEditing(false);
+
+    console.log('order', order);
   };
 
   return (
@@ -37,6 +57,11 @@ export const OrderCard: FC<{ order: TOrder }> = ({ order }) => {
       <button onClick={handleModalOpen} className='order-card__button'>
         Показать все товары
       </button>
+      {order.status !== 5 && (
+        <button onClick={handleArchiveOrder} className='order-card__button'>
+          Завершить заказ
+        </button>
+      )}
 
       {isModalOpen && (
         <>
@@ -46,7 +71,7 @@ export const OrderCard: FC<{ order: TOrder }> = ({ order }) => {
           >
             <div className='order-card__modal-content'>
               {order.items.map((item) => (
-                <Link key={item.id} to={`/advertisement/${item.id}`}>
+                <Link key={uuidv4()} to={`/advertisement/${item.id}`}>
                   <AdvertisementPreview advertisement={item} />
                 </Link>
               ))}

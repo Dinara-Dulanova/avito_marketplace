@@ -4,7 +4,8 @@ import {
   TOrderItem,
   TOrder,
   TImage,
-  TNewAdvertisment
+  TNewAdvertisment,
+  TNewOrder
 } from './types';
 
 const URL = 'http://localhost:3000';
@@ -64,10 +65,7 @@ export const patchAdvertisement = (id: string, data: TNewAdvertisment) =>
     body: JSON.stringify({
       ...data
     })
-  }).then((response) => {
-    console.log(response);
-    return response.json();
-  });
+  }).then((response) => response.json());
 
 export const getOrders = () =>
   fetch(`${URL}/orders`)
@@ -82,3 +80,17 @@ export const getOrders = () =>
       console.error('Error fetching orders:', error);
       throw error;
     });
+
+export const patchOrder = (id: string, data: TNewOrder) =>
+  fetch(`${URL}/orders/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    } as HeadersInit,
+    body: JSON.stringify({
+      ...data
+    })
+  }).then((response) => {
+    console.log(response);
+    return response.json();
+  });

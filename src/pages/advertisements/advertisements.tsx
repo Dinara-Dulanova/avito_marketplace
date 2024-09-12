@@ -4,6 +4,7 @@ import { useSelector } from '../../services/store';
 import { useDispatch } from '../../services/store';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import { useDebounce } from '../../utils/hooks/hooks';
 import {
   fetchAdvertisements,
@@ -76,10 +77,7 @@ export const Advertisements: FC = () => {
       ) : (
         <main className='advertisements'>
           {filteredAdvertisements.map((advertisement) => (
-            <Link
-              key={advertisement.id}
-              to={`/advertisement/${advertisement.id}`}
-            >
+            <Link key={uuidv4()} to={`/advertisement/${advertisement.id}`}>
               <AdvertisementPreview advertisement={advertisement} />
             </Link>
           ))}

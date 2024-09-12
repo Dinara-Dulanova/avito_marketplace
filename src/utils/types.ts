@@ -19,8 +19,8 @@ export type TAdvertisment = {
 
 export type TNewAdvertisment = {
   name: string;
-  imageUrl: string;
-  description: string;
+  imageUrl?: string;
+  description?: string;
   price: number;
   createdAt: string;
   views: 0;
@@ -53,6 +53,15 @@ export type TOrder = {
   /* Способ доставки(Почта, СДЭК...) */
   deliveryWay: string;
   /* Сумма заказа */
+  total: number;
+};
+
+export type TNewOrder = {
+  status: (typeof TOrderStatus)[keyof typeof TOrderStatus];
+  createdAt: string;
+  finishedAt?: string;
+  items: Array<TOrderItem>;
+  deliveryWay: string;
   total: number;
 };
 
