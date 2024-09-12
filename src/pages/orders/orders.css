@@ -1,10 +1,34 @@
 .orders {
   display: flex;
   flex-direction: column;
+  width: 90%;
+  background-color: #f6f7f4;
+  color: black;
+  padding-top: 20px;
+  margin-top: 60px;
+}
+
+.orders__filters {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .price-slider {
   width: 50%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: start;
+  justify-content: left;
+}
+
+.orders__content {
+  margin: 20px;
+}
+
+.order__card {
+  margin-top: 10px;
+  display: grid;
+  gap: 15px;
 }

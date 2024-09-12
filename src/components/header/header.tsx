@@ -1,72 +1,56 @@
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-// import { AppHeaderUI } from '@ui';
+import './style.css';
 
 export const Header: FC = () => (
   <header className='header'>
-    <nav className={`navigation`}>
-      <div className={'menu_part_left'}>
+    <nav className='navigation'>
+      <div className='nav_part_left'>
         <>
-          <NavLink to='/advertisements'>
+          {/* <NavLink
+            to='/advertisements'
+            className={({ isActive }) =>
+              `${link} ${isActive ? link_active : ''}`
+            }
+            end
+          >
             <p className='text text_type_main-default ml-2 mr-10'>
-              Объявленияы
+              Конструктор
             </p>
+          </NavLink> */}
+          <NavLink
+            to='/advertisements'
+            className={({ isActive }) =>
+              `${'link'} ${isActive ? 'link_active' : ''}`
+            }
+            end
+          >
+            <p className='link__text'>Объявления</p>
           </NavLink>
         </>
         <>
-          <NavLink to='/orders'>
-            <p className='text text_type_main-default ml-2'>Заказы</p>
+          <NavLink
+            to='/orders'
+            className={({ isActive }) =>
+              `${'link'} ${isActive ? 'link_active' : ''}`
+            }
+            end
+          >
+            <p className='link__text'>Заказы</p>
           </NavLink>
         </>
       </div>
-      {/* <div className={styles.logo}>
-      <Logo className='' />
-    </div> */}
-      <div className={'link_position_last'}>
-        {/* <ProfileIcon type={'primary'} /> */}
-        <NavLink to='/profile'>
-          <p className='text text_type_main-default ml-2'>
-            {'userName' || 'Личный кабинет'}
-          </p>
+      <div className='nav_part_right'>
+        <NavLink
+          to='/profile'
+          className={({ isActive }) =>
+            `${'link'} ${isActive ? 'link_active' : ''}`
+          }
+          end
+        >
+          <p className='link__text'>{'UserName' || 'Личный кабинет'}</p>
         </NavLink>
       </div>
     </nav>
   </header>
 );
-
-// export const Header: FC = () =>
-//       <header className='header'>
-//         <nav className={`navigation`}>
-//           <div className={'menu_part_left'}>
-//             <>
-//               <NavLink to='/'>
-//                 <p className='text text_type_main-default ml-2 mr-10'>
-//                   Конструктор
-//                 </p>
-//               </NavLink>
-//             </>
-//             <>
-//               <NavLink to='/feed'>
-//                 <p className='text text_type_main-default ml-2'>
-//                   Лента заказов
-//                 </p>
-//               </NavLink>
-//             </>
-//           </div>
-//           {/* <div className={styles.logo}>
-//       <Logo className='' />
-//     </div> */}
-//           <div className={'link_position_last'}>
-//             {/* <ProfileIcon type={'primary'} /> */}
-//             <NavLink to='/profile'>
-//               <p className='text text_type_main-default ml-2'>
-//                 {'userName' || 'Личный кабинет'}
-//               </p>
-//             </NavLink>
-//           </div>
-//         </nav>
-//       </header>
-//   );
-//   console.log('Header render');
-//   return <div>Header</div>;
-//   return <AppHeaderUI userName='USER' />;  //предполагается заполнять данными юзера с бека

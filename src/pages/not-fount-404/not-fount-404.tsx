@@ -1,7 +1,6 @@
 import { FC } from 'react';
+import './style.css';
 
 export const NotFound404: FC = () => (
-  <h3 className={`pb-6 text text_type_main-large`}>
-    Страница не найдена. Ошибка 404.
-  </h3>
+  <h3 className='not-found-404'>Страница не найдена. Ошибка 404.</h3>
 );

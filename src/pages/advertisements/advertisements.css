@@ -3,4 +3,14 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-bottom: 30px;
+  width: 90%;
+}
+
+.no-link-style {
+  text-decoration: none;
+  color: black;
+}
+
+.no-link-style:hover {
+  сursor: pointer;
 }

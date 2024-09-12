@@ -1,7 +1,42 @@
 .advertisement-card {
-  outline: solid;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  position: relative;
 }
 
 .advertisement-card__img {
   width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.advertisement-card h3 {
+  margin-top: 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.advertisement-card p {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.advertisement-card__icons {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.advertisement-card__icons svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  color: #666;
 }

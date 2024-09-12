@@ -4,6 +4,7 @@ import {
   getAdvertisementsPangination,
   postAdvertisement,
   patchAdvertisement,
+  deleteAdvertisement,
   RequestStatus
 } from '../../utils/adv-api';
 import { type TAdvertisment, type TNewAdvertisment } from '../../utils/types';
@@ -43,12 +44,10 @@ export const editAdvertisement = createAsyncThunk<
   patchAdvertisement(id, data)
 );
 
-// export const editAdvertisement = createAsyncThunk(
-//   'advertisements/editAdvertisement',
-//   async (id: string, data: TNewAdvertisment ) => {
-//     return await patchAdvertisement(id, data)
-//   }
-// );
+export const fetchDeleteAdvertisement = createAsyncThunk(
+  'advertisements/deleteAdvertisement',
+  async (data: TAdvertisment) => deleteAdvertisement(data)
+);
 
 const advertisementsSlice = createSlice({
   name: 'advertisements',
@@ -99,6 +98,18 @@ const advertisementsSlice = createSlice({
         }
       })
       .addCase(editAdvertisement.rejected, (state) => {
+        state.status = RequestStatus.Failed;
+      })
+      .addCase(fetchDeleteAdvertisement.pending, (state) => {
+        state.status = RequestStatus.Loading;
+      })
+      .addCase(fetchDeleteAdvertisement.fulfilled, (state, action) => {
+        state.status = RequestStatus.Succes;
+        state.advertisements = state.advertisements.filter(
+          (ad: TAdvertisment) => ad.id !== action.payload.id
+        );
+      })
+      .addCase(fetchDeleteAdvertisement.rejected, (state) => {
         state.status = RequestStatus.Failed;
       });
   }

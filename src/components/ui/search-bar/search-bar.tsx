@@ -1,4 +1,6 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { Button, Input } from '@mui/material';
+import './search-bar.css';
 
 interface SearchBarUIProps {
   searchText: string;
@@ -12,15 +14,22 @@ export const SearchBarUI: FC<SearchBarUIProps> = ({
   resetChange
 }) => (
   <div className='search'>
-    <input
+    <Input
       className='search__input'
       type='text'
       placeholder='Я ищу...'
       value={searchText}
       onChange={handleChange}
     />
-    <button className='reset-search__button' onClick={resetChange}>
+    <Button
+      className='reset-search__button'
+      onClick={resetChange}
+      variant='outlined'
+    >
       Сбросить
-    </button>
+    </Button>
+    {/* <button >
+      
+    </button> */}
   </div>
 );

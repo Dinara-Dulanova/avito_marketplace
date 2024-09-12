@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { fetchOrders } from '../../services/slices/orders';
 import { useDispatch, useSelector } from '../../services/store';
 import { Preloader } from '../../components/ui/preloader/preloader';
@@ -82,43 +84,39 @@ export const Orders: FC = () => {
         <Preloader />
       ) : (
         <main className='orders'>
-          <h3 className={`pb-6 text text_type_main-large`}>Заказы мои</h3>
-          <select
-            value={selectedStatus || ''}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-          >
-            {/* <option value=''>Все статусы</option> */}
-            {statusItems.map((item) => (
-              <option key={uuidv4()} value={item.stringSatus}>
-                {item.stringSatus}
-              </option>
-            ))}
-          </select>
-          {/* <div>
-            <input
-              type='checkbox'
-              checked={showArchived}
-              onChange={chengeCheckbox}
-            />
-            Показать завершенные
-          </div> */}
-
-          <div className='price-slider'>
-            <Slider
-              getAriaLabel={() => 'Temperature range'}
-              value={sortValue}
-              onChange={handleChange}
-              valueLabelDisplay='auto'
-              getAriaValueText={valuetext}
-              min={0}
-              max={maxOrderPrice + 5000}
-              step={5000}
-            />
+          <div className='orders__content'>
+            <h3 className={`pb-6 text text_type_main-large`}>Заказы мои</h3>
+            <div className='orders__filters'>
+              <Select
+                value={selectedStatus || ''}
+                onChange={(e) => setSelectedStatus(e.target.value)}
+              >
+                {statusItems.map((item) => (
+                  <MenuItem key={uuidv4()} value={item.stringSatus}>
+                    {item.stringSatus}
+                  </MenuItem>
+                ))}
+              </Select>
+              <div className='price-slider'>
+                <p>Цена</p>
+                <Slider
+                  getAriaLabel={() => 'Temperature range'}
+                  value={sortValue}
+                  onChange={handleChange}
+                  valueLabelDisplay='auto'
+                  getAriaValueText={valuetext}
+                  min={0}
+                  max={maxOrderPrice + 5000}
+                  step={5000}
+                />
+              </div>
+            </div>
+            <div className='orders__cards'>
+              {filteredOrders.map((order) => (
+                <OrderCard order={order} key={uuidv4()} />
+              ))}
+            </div>
           </div>
-
-          {filteredOrders.map((order) => (
-            <OrderCard order={order} key={uuidv4()} />
-          ))}
         </main>
       )}
     </>

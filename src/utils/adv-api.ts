@@ -31,6 +31,20 @@ export const getAdvertisements = () =>
       throw error;
     });
 
+export const getAdvertisementById = (id: string): Promise<TAdvertisment> =>
+  fetch(`${URL}/advertisements/${id}`)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Error fetching advertisements: ${res.statusText}`);
+      }
+      return res.json();
+    })
+    .then((data: TAdvertisment) => data)
+    .catch((error) => {
+      console.error('Error fetching advertisements:', error);
+      throw error;
+    });
+
 export const getAdvertisementsPangination = (start: number, limit: number) =>
   fetch(`${URL}/advertisements?_start=${start}&_limit=${limit}`)
     .then((res) => {
@@ -39,7 +53,10 @@ export const getAdvertisementsPangination = (start: number, limit: number) =>
       }
       return res.json();
     })
-    .then((data: TAdvertisment[]) => data)
+    .then((data: TAdvertisment[]) => {
+      console.log(data);
+      return data;
+    })
     .catch((error) => {
       console.error('Error fetching advertisements:', error);
       throw error;
@@ -66,6 +83,20 @@ export const patchAdvertisement = (id: string, data: TNewAdvertisment) =>
       ...data
     })
   }).then((response) => response.json());
+
+export const deleteAdvertisement = (data: TAdvertisment) =>
+  fetch(`${URL}/advertisements/${data.id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    } as HeadersInit,
+    body: JSON.stringify({
+      ...data
+    })
+  }).then((response) => {
+    console.log(response);
+    return response.json();
+  });
 
 export const getOrders = () =>
   fetch(`${URL}/orders`)

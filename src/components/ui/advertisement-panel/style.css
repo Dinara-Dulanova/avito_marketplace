@@ -1,0 +1,7 @@
+.advertisement-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 20px 0;
+  width: 90%;
+}

@@ -1,5 +1,50 @@
 .order-card {
-  outline: solid;
-  width: 80%;
-  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.order-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.order-card__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-card__item span {
+  font-weight: bold;
+}
+
+.order-card__button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.order-card__button:hover {
+  background-color: #0069d9;
+}
+
+.order-card__buttons {
+  display: flex;
+  gap: 16px;
 }

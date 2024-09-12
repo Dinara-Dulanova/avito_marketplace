@@ -32,8 +32,6 @@ export const OrderCard: FC<{ order: TOrder }> = ({ order }) => {
     };
     dispatch(editOrders({ id, data: data }));
     // setIsEditing(false);
-
-    console.log('order', order);
   };
 
   return (
@@ -54,14 +52,16 @@ export const OrderCard: FC<{ order: TOrder }> = ({ order }) => {
           {new Date(order.createdAt).toLocaleDateString()}
         </div>
       </div>
-      <button onClick={handleModalOpen} className='order-card__button'>
-        Показать все товары
-      </button>
-      {order.status !== 5 && (
-        <button onClick={handleArchiveOrder} className='order-card__button'>
-          Завершить заказ
+      <div className='order-card__buttons'>
+        <button onClick={handleModalOpen} className='order-card__button'>
+          Показать все товары
         </button>
-      )}
+        {order.status !== 5 && (
+          <button onClick={handleArchiveOrder} className='order-card__button'>
+            Завершить заказ
+          </button>
+        )}
+      </div>
 
       {isModalOpen && (
         <>
