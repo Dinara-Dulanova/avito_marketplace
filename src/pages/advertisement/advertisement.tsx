@@ -1,34 +1,46 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from '../../services/store';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from '../../services/store';
 import { TAdvertisment, TNewAdvertisment } from '@utils-types';
 import { NotFound404 } from '../not-fount-404';
-import { useDispatch } from '../../services/store';
 import {
   editAdvertisement,
-  fetchDeleteAdvertisement,
-  fetchAdvertisements
+  fetchDeleteAdvertisement
 } from '../../services/slices/advertisements';
-import { Preloader } from '../../components/ui/preloader/preloader';
+import { Preloader } from '../../components/ui/preloader';
 import { Modal } from '../../components/modal/modal';
 import { ConfirmationModal } from '../../components/confirmation-modal';
-import { RequestStatus } from '@api';
+import { getAdvertisementById, RequestStatus } from '@api';
 import './advertisement.css';
 import { Button } from '@mui/material';
 
 export const Advertisement: FC = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchAdvertisements());
-  }, []);
   const navigate = useNavigate();
   const { id } = useParams();
-  const advertisement = useSelector((state) =>
-    state.advertisements.advertisements.find(
-      (ad: TAdvertisment) => ad.id === id
-    )
+
+  const [advertisement, setAdvertisement] = useState<TAdvertisment | null>(
+    null
   );
-  const isLoading = useSelector((state) => state.advertisements.status);
+  const isLoading = useSelector(
+    (state) => state.advertisements.status === RequestStatus.Loading
+  );
+
+  const existingAdvertisement: TAdvertisment | undefined = useSelector(
+    (state) => state.advertisements.advertisements.find((ad) => ad.id === id)
+  );
+
+  useEffect(() => {
+    if (existingAdvertisement) {
+      setAdvertisement(existingAdvertisement);
+    } else {
+      if (id) {
+        getAdvertisementById(id).then((res) => {
+          setAdvertisement(res);
+        });
+      }
+    }
+  }, [id, existingAdvertisement]);
 
   //edit mode
   const [isEditing, setIsEditing] = useState(false);
@@ -66,7 +78,6 @@ export const Advertisement: FC = () => {
   const [showReadMoreButton, setShowReadMoreButton] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    console.log(ref.current?.scrollHeight, ref.current?.clientHeight);
     if (ref.current) {
       setShowReadMoreButton(
         ref.current.scrollHeight != ref.current.clientHeight
@@ -87,9 +98,7 @@ export const Advertisement: FC = () => {
   const [isDeleteConfirmed, setIsDeleteConfirmed] = useState(false);
 
   const handleConfirmDeletion = () => {
-    console.log('Confirming deletion!');
     setIsDeleteConfirmed(true);
-    console.log(isDeleteConfirmed);
     setIsDeleteModalOpen(false);
     if (advertisement) {
       dispatch(fetchDeleteAdvertisement(advertisement));
@@ -98,7 +107,6 @@ export const Advertisement: FC = () => {
   };
 
   const handleCancelDeletion = () => {
-    console.log('Canceling deletion!');
     setIsDeleteConfirmed(false);
     setIsDeleteModalOpen(false);
   };
@@ -124,7 +132,7 @@ export const Advertisement: FC = () => {
       </div>
 
       <div className='advertisement'>
-        {isLoading === RequestStatus.Loading ? (
+        {isLoading ? (
           <Preloader />
         ) : (
           <div className='advertisement__container'>
